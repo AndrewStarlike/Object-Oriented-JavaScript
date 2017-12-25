@@ -106,7 +106,7 @@ var Car = function (loc) {
     obj.loc = loc;
     return obj;
 };
-//the function move is inside prototype to avoid copying it at evey Car instantiation
+//the function move is inside prototype to avoid copying it at evey Car instantiation thus saving memory
 Car.prototype.move = function () {
     this.loc++;
 };
@@ -127,3 +127,47 @@ var amy = new Car(1);
 amy.move();
 var ben = new Car(9);
 ben.move();
+
+
+//Superclass and 2 subclasses
+var Car = function (loc) {
+    var obj = {loc: loc};
+    obj.move = function() {
+        obj.loc++;
+    }
+    return obj;
+};
+
+var Van = function (loc) {
+    var obj = Car(loc);
+    obj.grab = function () {};
+    return obj;
+};
+
+var Cop = function (loc) {
+    var obj = Car(loc);
+    obj.call = function () {};
+    return obj;
+};
+
+
+//Pseudoclassical subclasses
+var Car = function (loc) {
+    this.loc = loc;
+};
+Car.prototype.move = function () {
+    this.loc++;
+};
+
+var Van = function (loc) {
+    Car.call(this, loc);
+};
+Van.prototype = Object.create(Car.prototype);
+Van.prototype.grab = function () {};
+
+var zed = new Car(3);
+zed.move();
+
+var amy = new Van(9);
+amy.move();
+amy.grab();
