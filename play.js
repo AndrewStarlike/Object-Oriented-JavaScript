@@ -171,3 +171,20 @@ zed.move();
 var amy = new Van(9);
 amy.move();
 amy.grab();
+
+
+/**
+ * From Front end frameworks course - the constructor function
+ */
+var numLetters = function (letter) {
+    return new Function('times',
+        "if (times < 0) return ''; \
+        var result=''; \
+        times = Math.round(times); \
+        while (times--) { result += '" + letter + "'; } \
+        return result;"
+    )
+};
+
+var LotsOfAaas = numLetters('a');
+LotsOfAaas(4.3);
